@@ -14,14 +14,37 @@ body{
   align-items: center;
 }
 
+/*Start of style for Welcome Screen*/
 #welcomeScreen{
-  width: 50%;
-  height: 50%;
+  width: 500px;
+  height: 500px;
   background: blue;
   color: #fff;
-  display: none;
+  padding: 10px 0 10px 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 1.8rem;
+  /*display: none;*/
 }
 
+#btnContainer, #welcomeScreen header{
+   width: 100%;
+   height: 80px;
+   margin: 0;
+   padding: 0;
+   text-align: center;
+}
+
+#btnContainer button{
+  width: 80px;
+  height: 35px;
+  font-size: 1.3rem;
+  margin: 0 10px 0 10px;
+}
+/*Start of style for Board*/
 #board{
   width: 500px;
   height: 500px;
@@ -31,13 +54,24 @@ body{
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  padding: 20px 0 20px 0;
+  padding: 10px 0 10px 0;
   /*display: none;*/
 }
 
+/*Start of style for squares in board*/
 #board div{
-  background-color: #fff;
-  width: 25%;
-  height: 25%;
-  margin: 10px;
+  /*background-color: #fff;*/
+  width: 32%;
+  height: 33.3%;
+}
+
+
+#board #sq2, #board #sq5, #board #sq8{
+  border-left: 1px solid #fff;
+  border-right: 1px solid #fff;
+}
+
+#board #sq4, #board #sq5, #board #sq6{
+  border-top: 1px solid #fff;
+  border-bottom: 1px solid #fff;
 }
