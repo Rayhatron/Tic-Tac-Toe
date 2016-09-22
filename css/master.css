@@ -1,0 +1,43 @@
+body{
+  margin: 0;
+  padding: 0;
+
+}
+
+#container{
+  background: green;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+#welcomeScreen{
+  width: 50%;
+  height: 50%;
+  background: blue;
+  color: #fff;
+  display: none;
+}
+
+#board{
+  width: 500px;
+  height: 500px;
+  background: black;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0 20px 0;
+  /*display: none;*/
+}
+
+#board div{
+  background-color: #fff;
+  width: 25%;
+  height: 25%;
+  margin: 10px;
+}
