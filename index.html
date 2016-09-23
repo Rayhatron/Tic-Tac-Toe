@@ -9,18 +9,19 @@
   </head>
   <body ng-app="ngTicTacToe" ng-controller="ctrTicTacToe">
     <div id="container">
-      <div id="welcomeScreen">
+      
+      <div id="welcomeScreen" ng-hide="hideWelcomeScreen">
           <header>
             <h2>Would you like to be X or O?</h2>
           </header>
 
           <div id="btnContainer">
-             <button type="button" name="X">X</button>
-             <button type="button" name="O">O</button>
+             <button type="button" name="X" ng-click="playerSymbol('X')">X</button>
+             <button type="button" name="O" ng-click="playerSymbol('O')">O</button>
           </div>
       </div>
 
-      <div id="board">
+      <div id="board" ng-hide="hideBoard">
 
         <div id="sq1"></div>
         <div id="sq2"></div>
