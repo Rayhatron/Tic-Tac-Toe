@@ -9,7 +9,7 @@
   </head>
   <body ng-app="ngTicTacToe" ng-controller="ctrTicTacToe">
     <div id="container">
-      
+
       <div id="welcomeScreen" ng-hide="hideWelcomeScreen">
           <header>
             <h2>Would you like to be X or O?</h2>
@@ -23,15 +23,15 @@
 
       <div id="board" ng-hide="hideBoard">
 
-        <div id="sq1"></div>
-        <div id="sq2"></div>
-        <div id="sq3"></div>
-        <div id="sq4"></div>
-        <div id="sq5"></div>
-        <div id="sq6"></div>
-        <div id="sq7"></div>
-        <div id="sq8"></div>
-        <div id="sq9"></div>
+        <div id="sq1" ng-click="placeSymbol(1)" ng-disabled="sq1Disabled">{{sq1}}</div>
+        <div id="sq2" ng-click="placeSymbol(2)" ng-disabled="sq2Disabled">{{sq2}}</div>
+        <div id="sq3" ng-click="placeSymbol(3)" ng-disabled="sq3Disabled">{{sq3}}</div>
+        <div id="sq4" ng-click="placeSymbol(4)" ng-disabled="sq4Disabled">{{sq4}}</div>
+        <div id="sq5" ng-click="placeSymbol(5)" ng-disabled="sq5Disabled">{{sq5}}</div>
+        <div id="sq6" ng-click="placeSymbol(6)" ng-disabled="sq6Disabled">{{sq6}}</div>
+        <div id="sq7" ng-click="placeSymbol(7)" ng-disabled="sq7Disabled">{{sq7}}</div>
+        <div id="sq8" ng-click="placeSymbol(8)" ng-disabled="sq8Disabled">{{sq8}}</div>
+        <div id="sq9" ng-click="placeSymbol(9)" ng-disabled="sq9Disabled">{{sq9}}</div>
 
       </div>
     </div>
