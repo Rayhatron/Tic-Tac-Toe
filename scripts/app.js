@@ -13,6 +13,7 @@ angular.module("ngTicTacToe", []);
       $scope.hideBoard = true;
       $scope.currentPlayer = "";
       $scope.possibleMoves = [];
+      $scope.choosenMove = "";
       $scope.sq1Disabled = false;
       $scope.sq2Disabled = false;
       $scope.sq3Disabled = false;
@@ -45,17 +46,28 @@ angular.module("ngTicTacToe", []);
       }
 
       $scope.placeSymbol = function (sqNum){
+        console.log("Before user: " + $scope.board);
         $scope.board[sqNum-1] = $scope.userSymbol;
         $scope["sq" + sqNum] = $scope.userSymbol;
         $scope["sq" + sqNum + "Disabled"] = true;
         $scope.aiPlaceSymbol();
-        console.log($scope.board);
+        console.log("After user: " + $scope.board);
 
       }//End of user move
 
       $scope.aiPlaceSymbol = function (){
+        console.log("Before ai: " + $scope.board);
         $scope.getAvailableMoves();
-        console.log($scope.possibleMoves)
+        console.log("Possible moves :" + $scope.possibleMoves)
+        $scope.bIndex =  Math.floor(Math.random()* $scope.possibleMoves.length);
+        $scope.choosenMove = "" + ($scope.bIndex + 1);
+        if($scope["sq" + $scope.choosenMove + "Disabled"] === false){
+        $scope.board[$scope.bIndex] = $scope.aiSymbol;
+        $scope["sq" + $scope.choosenMove] = $scope.aiSymbol;
+        $scope["sq" + $scope.choosenMove + "Disabled"] = true;
+        console.log("After ai: " + $scope.board);
+      }
+        /*
         for(var i = 1; i < 10; i++){
           if($scope["sq" + i + "Disabled"] === false){
             console.log("AI");
@@ -66,6 +78,8 @@ angular.module("ngTicTacToe", []);
           }
 
         }
+        */
+        $scope.choosenMove = "";
         $scope.possibleMoves = [];
       }//End of AI move
 
