@@ -14,17 +14,9 @@ angular.module("ngTicTacToe", []);
       $scope.currentPlayer = "";
       $scope.possibleMoves = [];
       $scope.choosenMove = "";
-      $scope.sq1Disabled = false;
-      $scope.sq2Disabled = false;
-      $scope.sq3Disabled = false;
-      $scope.sq4Disabled = false;
-      $scope.sq5Disabled = false;
-      $scope.sq6Disabled = false;
-      $scope.sq7Disabled = false;
-      $scope.sq8Disabled = false;
-      $scope.sq9Disabled = false;
+      $scope.winner = "";
 
-
+      //Assign symbols for player and ai on first screen
       $scope.playerSymbol = function(symbol){
         switch (symbol) {
           case 'X':
@@ -42,54 +34,105 @@ angular.module("ngTicTacToe", []);
         $scope.hideBoard = false;
         $scope.currentPlayer = $scope.userSymbol;
 
-        console.log($scope.userSymbol + " and " + $scope.aiSymbol);
       }
 
-      $scope.placeSymbol = function (sqNum){
-        console.log("Before user: " + $scope.board);
-        $scope.board[sqNum-1] = $scope.userSymbol;
-        $scope["sq" + sqNum] = $scope.userSymbol;
-        $scope["sq" + sqNum + "Disabled"] = true;
-        $scope.aiPlaceSymbol();
-        console.log("After user: " + $scope.board);
+      //Place symbol function
+      $scope.placeSymbol = function(index){
 
-      }//End of user move
 
-      $scope.aiPlaceSymbol = function (){
-        console.log("Before ai: " + $scope.board);
-        $scope.getAvailableMoves();
-        console.log("Possible moves :" + $scope.possibleMoves)
-        $scope.bIndex =  Math.floor(Math.random()* $scope.possibleMoves.length);
-        $scope.choosenMove = "" + ($scope.bIndex + 1);
-        if($scope["sq" + $scope.choosenMove + "Disabled"] === false){
-        $scope.board[$scope.bIndex] = $scope.aiSymbol;
-        $scope["sq" + $scope.choosenMove] = $scope.aiSymbol;
-        $scope["sq" + $scope.choosenMove + "Disabled"] = true;
-        console.log("After ai: " + $scope.board);
+        if($scope.currentPlayer == $scope.userSymbol){
+          //Code for when it's user's turn
+          if($scope.board[index] == ""){
+            //Check if clicked box is empty in board array
+            $scope.board[index] = $scope.userSymbol;  //Assign user symbol to board box since it's empty
+            $scope.currentPlayer = $scope.aiSymbol //change current player so that when the function it's called again, it switches to ai move
+            $scope.checkWinner($scope.userSymbol); // Check for a winner before letting ai play
+            $scope.placeSymbol(); // call function again for ai turn
+           
+          } 
+        }else{
+          $scope.aiMove();
+        }
+
+
+        
+        
       }
-        /*
-        for(var i = 1; i < 10; i++){
-          if($scope["sq" + i + "Disabled"] === false){
-            console.log("AI");
-            $scope.board[i-1] = $scope.aiSymbol;
-            $scope["sq" + i] = $scope.aiSymbol;
-            $scope["sq" + i + "Disabled"] = true;
-            break;
-          }
 
-        }
-        */
-        $scope.choosenMove = "";
-        $scope.possibleMoves = [];
-      }//End of AI move
+      $scope.aiMove = function(){
 
-      $scope.getAvailableMoves = function(){
-        for(var i = 0; i <= 9; i++){
-          if($scope.board[i] == ""){
-            $scope.possibleMoves.push(i);
+        for (var i = 0; i <= $scope.board.length; i++) {
+          //loop through board
+          if($scope.board[i] === ""){
+            //check if current index in board is empty
+            $scope.possibleMoves.push(i); // push that index to possible moves array for ai since it's empty
           }
         }
-      }//End of getAvailableMoves
+        $scope.randomNumber = Math.floor(Math.random()*$scope.possibleMoves.length); // randmonly select an index in the possible moves array
+        $scope.board[$scope.possibleMoves[$scope.randomNumber]] = $scope.aiSymbol; // take the value of random index and use it to select value from it and assign ai symbol to board
+        $scope.currentPlayer = $scope.userSymbol;
+        $scope.possibleMoves = []; // reset possible moves array for next iteration
+        $scope.checkWinner($scope.aiSymbol);
+      
+      }
+
+      $scope.checkWinner = function(player){
+        //check if any of the winning combination is equal to player symbol and declare that player as winner. 
+        if($scope.board[1] === player && $scope.board[4] === player && $scope.board[7] === player ){
+          $scope.winner = player;
+        } 
+        else if($scope.board[2] === player && $scope.board[4] === player && $scope.board[6] === player ){
+          $scope.winner = player;
+        }
+        else if($scope.board[0] === player && $scope.board[4] === player && $scope.board[8] === player ){
+          $scope.winner = player;
+        }
+        else if($scope.board[2] === player && $scope.board[5] === player && $scope.board[8] === player ){
+          $scope.winner = player;
+        }
+        else if($scope.board[0] === player && $scope.board[3] === player && $scope.board[6] === player ){
+          $scope.winner = player;
+        }
+        else if($scope.board[0] === player && $scope.board[1] === player && $scope.board[2] === player ){
+          $scope.winner = player;
+        }
+        else if($scope.board[3] === player && $scope.board[4] === player && $scope.board[5] === player ){
+          $scope.winner = player;
+        }
+        else if ($scope.board[6] === player && $scope.board[7] === player && $scope.board[8] === player ){
+          $scope.winner = player;
+        }
+
+
+        $scope.boardIsFull = $scope.board.every(function(i) { return i !== ""; });
+      
+        if($scope.winner == $scope.userSymbol){
+          $scope.endGame("You won!");
+        }else if($scope.winner == $scope.aiSymbol){
+          $scope.endGame("Ai won!");
+        }else if($scope.winner == "" && $scope.boardIsFull == true){
+          $scope.endGame("Draw!");
+        }
+        
+
+      }
+
+      $scope.endGame = function (message){
+            alert( message );
+            $scope.board = ["", "", "", "", "", "", "", "", ""];
+            $scope.userSymbol = "";
+            $scope.aiSymbol = "";
+            $scope.hideWelcomeScreen = false;
+            $scope.hideBoard = true;
+            $scope.currentPlayer = "";
+            $scope.possibleMoves = [];
+            $scope.choosenMove = "";
+            $scope.winner = "";
+      }
+
+
+      
+     
 
     });
 
